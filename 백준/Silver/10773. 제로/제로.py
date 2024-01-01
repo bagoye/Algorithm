@@ -1,9 +1,10 @@
-n = int(input())
-S = []
-for i in range(n):
+count = int(input())
+stk = []
+
+for i in range(count): 
     num = int(input())
-    if num == 0:
-        S.pop()
+    if(num == 0):
+        stk.pop()
     else:
-        S.append(num)
-print(sum(S))
+        stk.append(num)
+print(sum(stk))
