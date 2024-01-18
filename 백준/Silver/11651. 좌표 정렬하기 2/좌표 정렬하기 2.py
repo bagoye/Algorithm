@@ -1,10 +1,13 @@
-lst = []
+import sys
+input = sys.stdin.readline
+
+arr = []
 
 for _ in range(int(input())):
   x, y = map(int, input().split())
-  lst.append((x, y))
+  arr.append([y, x])
 
-lst.sort(key= lambda x: (x[1] , x[0]))
+arr.sort()
 
-for i in lst:
-  print(i[0], i[1])
+for y, x in arr:
+  print(x, y)
