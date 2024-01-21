@@ -1,36 +1,36 @@
 from collections import deque
-import sys 
+import sys
 input = sys.stdin.readline
 
-N, M, R = map(int, input().rstrip().split())
-
+N, M, R = map(int, input().split())
 graph = [[] for _ in range(N+1)]
-visited = [0] * (N + 1)
 
+# BFS 탐색 (탐색할 그래프, 노드 수, 시작 지점)
 for _ in range(M):
-    a, b = map(int, input().rstrip().split())
+    u, v = map(int, input().split())
+    graph[u].append(v)
+    graph[v].append(u)
 
-    graph[a].append(b)
-    graph[b].append(a)
+visited = [0]*(N+1) #방문 여부를 확인할 리스트
+visited[R] = 1 #시작 노드 방문
 
-for i in range(N+1):
-    graph[i].sort()
+queue = deque([R]) #인접 노드를 저장할 Queue
 
-def bfs(graph, start, visited):
-    queue = deque([start])
-    visited[start] = 1
-    count = 2
+#모든 노드를 탐색할 때까지 반복
+cnt = 1
+while queue:
+    #방문 노드
+    node = queue.popleft()
+    graph[node].sort()  # 오름차순으로 방문
 
-    while queue :
-        v = queue.popleft()
+    #방문한 노드의 주변 노드를 큐에 삽입
+    for i in graph[node]:
+        #방문하지 않는 주변 노드일 경우
+        if not visited[i]:
+            queue.append(i) #큐에 추가
+            cnt += 1
+            visited[i] = cnt #방문
 
-        for i in graph[v]:
-            if not visited[i]:
-                queue.append(i)
-                visited[i]=count
-                count += 1
-
-bfs(graph, R, visited)
-
-for i in visited[1::]:
+#출력
+for i in visited[1:]:
     print(i)
