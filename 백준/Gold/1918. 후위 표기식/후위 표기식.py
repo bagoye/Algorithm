@@ -1,22 +1,25 @@
-test = input()
-S = []
-rlt = ''
+import sys
+input = sys.stdin.readline
+
+test = input().strip()
+stack = []
+ans = ''
 icp = {'+':1, '-':1, '*':2, '/':2, '(': 3, ')':0}
 isp = {'+':1, '-':1, '*':2, '/':2, '(': 0, ')':0}
 for i in test:
     if i in icp:
         if i == ')':
-            while S[-1] != '(':
-                rlt += S.pop()
-            S.pop()
-        else:       # 나머지연산자
-            while S and icp[i] <= isp[S[-1]]:
-                rlt += S.pop()
-            S.append(i)
+            while stack[-1] != '(':
+                ans += stack.pop()
+            stack.pop()
+        else:
+            while stack and icp[i] <= isp[stack[-1]]:
+                ans += stack.pop()
+            stack.append(i)
     else:
-        rlt += i
+        ans += i
 
-while S:
-    rlt += S.pop()
+while stack:
+    ans += stack.pop()
 
-print(rlt)
+print(ans)
