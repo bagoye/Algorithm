@@ -2,11 +2,11 @@ import sys
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-s = []
+s = set()
 cnt = 0
 
 for _ in range(n):
-  s.append(input().strip())
+  s.add(input().strip())
 
 for _ in range(m):
   word = input().strip()
