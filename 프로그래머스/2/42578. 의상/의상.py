@@ -2,10 +2,11 @@ def solution(clothes):
     answer = 1
     a = {}
     for i in range(len(clothes)):
-        if clothes[i][1] in a:
-            a[clothes[i][1]] += 1
+        type = clothes[i][1]
+        if type in a:
+            a[type] += 1
         else:
-            a[clothes[i][1]] = 1
+            a[type] = 1
             
     for i in a.values():
         answer *=  i + 1 
