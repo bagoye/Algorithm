@@ -1,21 +1,21 @@
 import sys
 input = sys.stdin.readline
 
-N = int(input())
-cards = [*map(int, input().split())]
-M = int(input())
-candidate = [*map(int, input().split())]
+n = int(input())
+cards = sorted(list(map(int, input().split())))
+m = int(input())
+check = list(map(int, input().split()))
 
-count = {}
-for card in cards:
-    if card in count:
-        count[card] += 1
-    else:
-        count[card] = 1
 
-for target in candidate:
-    result = count.get(target)
-    if result == None:
-        print(0, end=" ")
-    else:
-        print(result, end=" ")
+cnt = {}
+for i in cards:
+  if i in cnt:
+    cnt[i] += 1
+  else:
+    cnt[i] = 1
+
+for i in check:
+  if i in cnt:
+    print(cnt[i], end=' ')
+  else:
+    print(0, end=' ')
