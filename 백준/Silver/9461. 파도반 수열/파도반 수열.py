@@ -2,14 +2,9 @@ import sys
 input = sys.stdin.readline
 arr = [0, 1, 1, 1] + [0 for x in range(97)]
 
-def func(x):
-  if arr[x]:
-    return arr[x]
-  else:
-    arr[x] = func(x-2) + func(x-3)
-    return arr[x]
-
-t = int(input())
-for _ in range(t):
+for _ in range(int(input())):
   n = int(input())
-  print(func(n))
+  for x in range(4, n + 1):
+        arr[x] = arr[x - 2] + arr[x - 3]
+
+  print(arr[n])
