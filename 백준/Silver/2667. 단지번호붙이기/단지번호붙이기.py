@@ -1,42 +1,42 @@
-from collections import deque
 import sys
 input = sys.stdin.readline
 
-dx, dy = [0, 0, 1, -1], [1, -1, 0, 0]
-
-
-def bfs(graph, a, b):
-    n = len(graph)
-    q = deque()
-    q.append((a, b))
-    graph[a][b] = 0
-    cnt = 1
-
-    while q:
-        x, y = q.popleft()
-        for i in range(4):
-            nx, ny = x + dx[i], y + dy[i]
-            if nx < 0 or nx >= n or ny < 0 or ny >= n:
-                continue
-            if graph[nx][ny] == 1:
-                graph[nx][ny] = 0
-                q.append((nx, ny))
-                cnt += 1
-    return cnt
-
-
 n = int(input())
 graph = []
+num = []
+
 for i in range(n):
     graph.append(list(map(int, input().rstrip())))
 
-ans = []
+dx, dy = [0, 0, 1, -1], [1, -1, 0, 0]
+
+def dfs(x, y):
+    if x < 0 or x >= n or y < 0 or y >= n:
+        return False
+
+    if graph[x][y] == 1:
+        global cnt
+        cnt += 1
+        graph[x][y] = 0
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            dfs(nx, ny)
+        return True
+    return False
+
+
+cnt = 0
+ans = 0
+
 for i in range(n):
     for j in range(n):
-        if graph[i][j] == 1:
-            ans.append(bfs(graph, i, j))
+        if dfs(i, j) == True:
+            num.append(cnt)
+            ans += 1
+            cnt = 0
 
-ans.sort()
-print(len(ans))
-for i in range(len(ans)):
-    print(ans[i])
+num.sort()
+print(ans)
+for i in range(len(num)):
+    print(num[i])
