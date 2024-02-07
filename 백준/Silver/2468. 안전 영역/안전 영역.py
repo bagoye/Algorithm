@@ -7,7 +7,7 @@ graph = []
 maxNum = 0
  
 for i in range(n):
-    graph.append(list(map(int, input().rstrip().split())))
+    graph.append(list(map(int, input().split())))
     for j in range(n):
         if graph[i][j] > maxNum:
             maxNum = graph[i][j] 
