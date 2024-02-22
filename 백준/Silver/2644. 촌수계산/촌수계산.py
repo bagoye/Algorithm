@@ -1,32 +1,24 @@
-from collections import deque
 import sys
-input = sys.stdin.readline
+sys.setrecursionlimit(300000)
 
+def dfs(node):
+    for n in graph[node]:
+        if v[n] == 0:
+            v[n] = v[node]+1
+            dfs(n)
+            
 n = int(input())
 a, b = map(int, input().split())
 m = int(input())
 
 graph = [[] for _ in range(n + 1)]
-v = [0 for _ in range(n+1)]
+v = [0] * (n + 1)
 
-for i in range(m):
-  x, y= map(int, input().split())
-  graph[x].append(y)
-  graph[y].append(x)
-
-def bfs(x, y):
-  q = deque([x])
-  v[x] = 0
-
-  while q:
-    people = q.popleft()
-    if people == y:
-      return v[y]
-    for i in graph[people]:
-      if v[i] == 0:
-        q.append(i)
-        v[i] = v[people] + 1
+for _ in range(m):
+    x, y = map(int, input().split())
+    graph[x].append(y)
+    graph[y].append(x)
     
-  return -1
+dfs(a)
 
-print(bfs(a, b))
+print(v[b] if v[b] > 0 else -1)
