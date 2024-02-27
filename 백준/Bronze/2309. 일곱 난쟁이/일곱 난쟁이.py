@@ -4,13 +4,19 @@ input = sys.stdin.readline
 arr = [int(input()) for _ in range(9)]
 arr.sort()
 
-sumArr = sum(arr)
-for i in range(len(arr)):
-  for j in range(i + 1, len(arr)):
-    if sumArr - arr[i] - arr[j] == 100:
-      for k in range(len(arr)):
-        if k == i or k == j:
-          pass
-        else:
-          print(arr[k])
+seven = []
+def dfs(depth, s):
+  if depth == 7:
+    if sum(seven) == 100:
+      for j in sorted(seven):
+        print(j)
       exit()
+    else:
+      return
+  
+  for i in range(s, len(arr)):
+    seven.append(arr[i])
+    dfs(depth + 1, i + 1)
+    seven.pop()
+
+dfs(0, 0)
