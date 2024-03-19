@@ -1,16 +1,32 @@
 for tc in range(1, 11):
     _ = int(input())
-    result = 0
-    pan = [0 for i in range(100)]  # 세로의 합을 저장할 배열
+    arr = [list(map(int, input().split())) for _ in range(100)]
+
+    row_list = []
+    for i in range(100):
+        r_total = 0
+        for j in range(100):
+            r_total += arr[i][j]
+        row_list.append(r_total)
+
+    col_list = []
+    for j in range(100):
+        c_total = 0
+        for i in range(100):
+            c_total += arr[i][j]
+        col_list.append(c_total)
+
     right = 0
+    for i in range(100):
+        right += arr[i][i]
+
     left = 0
     for i in range(100):
-        line = list(map(int, input().split()))
-        result = max(result, sum(line))  # 가로의 합
-        right += line[i]  # 아래 오른쪽 대각선의 합을 저장할 cnt
-        left += line[99 - i]  # 아래 왼쪽 대각선의 합을 저장할 cnt1
-        for j in range(100):
-            pan[j] += line[j]  # 세로값 저장
+        for j in range(99, -1, -1):
+            if i + j == 99:
+                left += arr[i][j]
 
-    result = max(result, max(pan), right, left)  # 최댓값
+    find_max_value = [max(row_list), max(col_list), right, left]
+    result = max(find_max_value)
+    
     print(f"#{tc}", result)
