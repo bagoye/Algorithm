@@ -1,14 +1,10 @@
 function solution(phone_book) {
-    const nums = {}
-    for (const phone of phone_book) {
-        nums[phone] = true;
-    }
-    
-    for (let phone of phone_book) {
-        for (let i = 1; i < phone.length; i++){
-            const prefix = phone.substring(0, i);
-            if (nums[prefix]) return false;
+    phone_book.sort()
+    for (let i = 0; i < phone_book.length - 1; i++){
+        let idx = phone_book[i].length
+        if (phone_book[i] === phone_book[i+1].substring(0, idx)) {
+            return false;
         }
     }
-    return true;
+    return true
 }
