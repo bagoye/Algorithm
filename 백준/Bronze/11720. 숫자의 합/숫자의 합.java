@@ -6,12 +6,12 @@ public class Main {
 
         int n = in.nextInt();
         String arr = in.next();
-        char[] charNum = arr.toCharArray();
-
+        
         int sum = 0;
         for (int i = 0; i < n; i++) {
-            sum += charNum[i] - '0';
+            sum += arr.charAt(i) - '0';
         }
+
         System.out.println(sum);
     }
 }
