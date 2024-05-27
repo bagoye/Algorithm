@@ -3,10 +3,9 @@ def solution(numbers):
     stack = []
     
     for i in range(len(numbers)):
-        temp = numbers[i]
         
-        while stack and numbers[stack[-1]] < temp:
-            answer[stack.pop()] = temp
+        while stack and numbers[stack[-1]] < numbers[i]:
+            answer[stack.pop()] = numbers[i]
         
         stack.append(i)
     
