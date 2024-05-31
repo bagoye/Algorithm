@@ -1,10 +1,14 @@
-count = int(input())
-stk = []
+import sys
 
-for i in range(count): 
-    num = int(input())
-    if(num == 0):
-        stk.pop()
+input = sys.stdin.readline
+
+k = int(input())
+s = []
+for i in range(k):
+    n = int(input())
+    if n == 0:
+        s.pop()
     else:
-        stk.append(num)
-print(sum(stk))
+        s.append(n)
+
+print(sum(s))
