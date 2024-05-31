@@ -1,30 +1,31 @@
-while(True):
-    word = input()
+import sys
 
-    stack = []
+input = sys.stdin.readline
 
-    if word=='.':
+while True:
+    words = input().rstrip()
+    s = []
+    if words == ".":
         break
 
-    for w in word:
-        if w == '(' or w == '[':
-            stack.append(w)
-
-        elif w == ')':
-            if len(stack) != 0 and stack[-1] == '(':
-                stack.pop()
+    for i in words:
+        if i == "(" or i == "[":
+            s.append(i)
+        elif i == ")":
+            if len(s) != 0 and s[-1] == "(":
+                s.pop()
             else:
-                stack.append(w)
-                break
-            
-        elif w == ']':
-            if len(stack) != 0 and stack[-1] == '[':
-                stack.pop()
-            else:
-                stack.append(w)
+                s.append(i)
                 break
 
-    if len(stack) == 0:
-        print('yes')
+        elif i == "]":
+            if len(s) != 0 and s[-1] == "[":
+                s.pop()
+            else:
+                s.append(i)
+                break
+
+    if len(s) == 0:
+        print("yes")
     else:
-        print('no')
+        print("no")
