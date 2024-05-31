@@ -1,8 +1,12 @@
-students = [i for i in range(1,31)]
+import sys
 
-for _ in range(28):
-    num = int(input())
-    students.remove(num)
+input = sys.stdin.readline
 
-print(min(students))
-print(max(students))
+arr = [0] * 31
+for i in range(1, 29):
+    student = int(input())
+    arr[student] = 1
+
+for i in range(1, len(arr)):
+    if arr[i] != 1:
+        print(i)
