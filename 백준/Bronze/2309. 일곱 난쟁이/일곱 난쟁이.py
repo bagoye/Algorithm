@@ -1,18 +1,12 @@
 import sys
+import itertools
 
 input = sys.stdin.readline
 
-arr = []
-for _ in range(9):
-    arr.append(int(input()))
-arr.sort()
+arr = [int(input()) for _ in range(9)]
 
-for i in range(len(arr)):
-    for j in range(i+1, len(arr)):
-        if sum(arr) - arr[i] - arr[j] == 100:
-            for k in range(len(arr)):
-                if k == i or k == j:
-                    pass
-                else:
-                    print(arr[k])
-            exit()
+for i in itertools.combinations(arr, 7):
+    if sum(i) == 100:
+        for j in sorted(i):
+            print(j)
+        break
