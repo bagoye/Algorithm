@@ -3,23 +3,23 @@ import sys
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-arr = list(map(int, input().split()))
+nums = list(map(int, input().split()))
 
-s, e, cnt, sum = 0, 0, 0, 0
+s, e = 0, 0
+sum = nums[0]
+cnt = 0
 
 while True:
-    if sum < m:
-        if e < n:
-            sum += arr[e]
-            e += 1
-        else:
-            break
-    elif sum == m:
+    if sum == m:
         cnt += 1
-        sum -= arr[s]
+
+    if sum >= m:
         s += 1
+        sum -= nums[s - 1]
     else:
-        sum -= arr[s]
-        s += 1
+        if e == n-1:
+            break
+        e += 1
+        sum += nums[e]
 
 print(cnt)
