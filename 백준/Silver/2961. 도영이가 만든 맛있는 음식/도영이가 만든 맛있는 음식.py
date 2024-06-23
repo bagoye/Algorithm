@@ -1,22 +1,20 @@
 import sys
 input = sys.stdin.readline
 
-def dfs(start, visited, s, b):
+def dfs(idx, s, b, use):
     global answer
 
-    if b != 0:
-        answer = min(answer, abs(s-b))
+    if idx == n:
+        if use > 0:
+            result = abs(s-b)
+            answer = min(answer, result)
+        return
 
-    for i in range(start, n):
-        if not visited[i]:
-            visited[i] =True
-            dfs(start+1, visited, s*arr[i][0], b+arr[i][1])
-            visited[i] = False
+    dfs(idx + 1, s*arr[idx][0], b+arr[idx][1], use+1)
+    dfs(idx + 1, s, b, use)
 
 n = int(input())
 arr = [list(map(int, input().split())) for _ in range(n)]
-
 answer = int(1e9)
-visited = [False] * n
-dfs(0, visited, 1, 0)
+dfs(0, 1, 0, 0)
 print(answer)
