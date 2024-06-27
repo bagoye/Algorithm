@@ -1,25 +1,26 @@
 import sys
-from collections import deque
 input = sys.stdin.readline
 
 n = int(input())
-q = deque()
-q.append([n])
+dp = [0] * 1000001
 
-def bfs():
-    while q:
-        a = q.popleft()
-        x = a[0]
+for i in range(2, n+1):
+    dp[i] = dp[i-1] + 1
 
-        if x == 1:
-            return a
-        if x % 3 == 0:
-            q.append([x//3] + a)
-        if x % 2 == 0:
-            q.append([x//2] + a)
+    if i % 2 == 0:
+        dp[i] = min(dp[i], dp[i//2] + 1)
 
-        q.append([x-1] + a)
+    if i % 3 == 0:
+        dp[i] = min(dp[i], dp[i//3] + 1)
+print(dp[n])
 
-answer = bfs()
-print(len(answer) - 1)
-print(*answer[::-1])
+answer = [n]
+now = n
+temp = dp[n] - 1
+
+for i in range(n, 0, -1):
+    if dp[i] == temp and (i+1 == now or i * 2 == now or i * 3 == now):
+        now = i
+        answer.append(i)
+        temp -= 1
+print(*answer)
