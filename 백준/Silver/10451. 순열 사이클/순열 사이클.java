@@ -1,6 +1,4 @@
 import java.io.*;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -10,7 +8,6 @@ public class Main {
 
     static int[] arr;
     static boolean[] visited;
-    static int cnt;
 
     public static void main(String[] args) throws IOException {
         int t = Integer.parseInt(br.readLine());
@@ -20,8 +17,8 @@ public class Main {
 
             arr = new int[n + 1];
             visited = new boolean[n + 1];
-            cnt = 0;
-            
+            int cnt = 0;
+
             st = new StringTokenizer(br.readLine());
             for (int j = 1; j <= n; j++) {
                 arr[j] = Integer.parseInt(st.nextToken());
@@ -29,29 +26,21 @@ public class Main {
 
             for (int j = 1; j <= n; j++) {
                 if (!visited[j]) {
-                    bfs(j);
+                    dfs(j);
+                    cnt++;
                 }
             }
-            
+
             bw.write(cnt + "\n");
         }
         bw.close();
+
     }
 
-    public static void bfs(int idx) {
-        Queue<Integer> q = new LinkedList<>();
-        q.offer(idx);
+    public static void dfs(int idx) {
         visited[idx] = true;
-
-        while (!q.isEmpty()) {
-            int temp = q.poll();
-            if (!visited[arr[temp]]) {
-                visited[arr[temp]] = true;
-                q.offer(arr[temp]);
-            } else {
-                cnt++;
-                break;
-            }
+        if (!visited[arr[idx]]) {
+            dfs(arr[idx]);
         }
     }
 }
