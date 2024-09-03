@@ -1,11 +1,9 @@
 import sys
+
 input = sys.stdin.readline
 
-n, m = map(int,input().split())
-board = []
-
-for _ in range(n):
-    board.append(input())
+n, m = map(int, input().split())
+board = [input().strip() for _ in range(n)] 
 
 a, b = 0, 0
 
@@ -17,4 +15,4 @@ for j in range(m):
     if "X" not in [board[i][j] for i in range(n)]:
         b += 1
 
-print(max(a ,b))
+print(max(a, b))
