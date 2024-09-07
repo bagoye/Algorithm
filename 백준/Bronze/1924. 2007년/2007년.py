@@ -1,0 +1,14 @@
+import sys
+input = sys.stdin.readline
+
+days  = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+day = 0 
+
+m, d = map(int, input().split()) 
+
+for i in range (0, m - 1) :
+  day += months[i]
+
+answer = (day + d) % 7
+print(days[answer])
