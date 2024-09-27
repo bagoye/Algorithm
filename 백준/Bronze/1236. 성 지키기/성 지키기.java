@@ -11,33 +11,37 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        String[] board = new String[n];
+        char[][] board = new char[n][m];
+        for (int i = 0; i < n; i++) board[i] = br.readLine().toCharArray();
+
+        int rowCnt = 0;
         for (int i = 0; i < n; i++) {
-            board[i] = br.readLine().trim();
-        }
-
-        int a = 0;
-        int b = 0;
-
-        for (int i = 0; i < n; i++) {
-            if (!board[i].contains("X")) {
-                a++;
-            }
-        }
-
-        for (int j = 0; j < m; j++) {
-            boolean x = false;
-            for (int i = 0; i < n; i++) {
-                if (board[i].charAt(j) == 'X') {
-                    x = true;
+            boolean exist = false;
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == 'X') {
+                    exist = true;
                     break;
                 }
             }
-            if (!x) {
-                b++;
-            }
+            if (exist) rowCnt++;
         }
-        bw.write(Math.max(a, b) + "");
+
+        int colCnt = 0;
+        for (int j = 0; j < m; j++) {
+            boolean exist = false;
+            for (int i = 0; i < n; i++) {
+                if (board[i][j] == 'X') {
+                    exist = true;
+                    break;
+                }
+            }
+            if (exist) colCnt++;
+        }
+
+        int row = n - rowCnt;
+        int col = m - colCnt;
+
+        bw.write(Math.max(row, col) + "");
         bw.close();
     }
 }
