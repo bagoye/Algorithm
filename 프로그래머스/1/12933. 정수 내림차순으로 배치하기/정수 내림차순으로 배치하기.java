@@ -1,9 +1,9 @@
-import java.util.Arrays;
+import java.util.*;
 
 class Solution {
   public long solution(long n) {
-        String s = "" + n;
-        char[] arr = s.toCharArray();
+        String num = Long.toString(n);
+        char[] arr = num.toCharArray();
 
         Arrays.sort(arr);
 
