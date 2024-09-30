@@ -2,17 +2,15 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int []arr) {
-        ArrayList<Integer> lst = new ArrayList<>();
+        Stack<Integer> s = new Stack<>();
         
-        for (int i = 0 ; i < arr.length; i++){
-            if(i != 0 && arr[i] == arr[i - 1]) continue;
-            lst.add(arr[i]);
+        for (int i = 0; i < arr.length; i++) {
+            if (s.size() == 0 || arr[i] != s.peek()) s.push(arr[i]);
         }
         
-        int[] answer = new int[lst.size()];
-        for(int i = 0 ; i < lst.size() ; i++){
-            answer[i] = lst.get(i);
-        }
+        int[] answer = new int[s.size()];
+        
+        for (int i = s.size()-1; i >= 0; i--) answer[i] = s.pop();
         
         return answer;
     }
