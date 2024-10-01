@@ -1,18 +1,18 @@
 class Solution {
     public String solution(String s) {
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        String arr[] = s.split(" ");
-        
-        for (int i = 0; i < arr.length; i++) {
-            if (min > Integer.parseInt(arr[i])) {
-                min = Integer.parseInt(arr[i]);
-            }
-            if (max < Integer.parseInt(arr[i])) {
-                max = Integer.parseInt(arr[i]);
-            }
+        String[] str = s.split(" ");
+
+        int max = Integer.parseInt(str[0]);
+        int min = Integer.parseInt(str[0]);
+
+        for (String x : str) {
+            int temp = Integer.parseInt(x);
+
+            if (min > temp) min = temp;
+
+            if (max < temp) max = temp;
         }
-        
-        return Integer.toString(min) + " " + Integer.toString(max);
+
+        return min + " " + max;
     }
 }
