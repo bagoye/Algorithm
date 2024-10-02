@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,22 +10,22 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         int n = Integer.parseInt(br.readLine());
-        Map<String, Integer> map = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            String title = br.readLine();
-            map.put(title, map.getOrDefault(title, 0) + 1);
-        }
+        String[] arr = new String[n];
+        for (int i = 0; i < n; i++) arr[i] = br.readLine();
 
-        String answer = "";
-        int max = 0;
-        for (Map.Entry<String, Integer> title : map.entrySet()) {
-            String name = title.getKey();
-            int cnt = title.getValue();
-            if (cnt > max || (cnt == max && name.compareTo(answer) < 0)) {
-                answer = name;
+        Arrays.sort(arr);
+        String answer = arr[0];
+        int max = 1;
+        int cnt = 1;
+        for (int i = 1; i < n; i++) {
+            if (!arr[i].equals(arr[i-1])) cnt = 0;
+            cnt++;
+            if (cnt > max || (cnt == max && arr[i].compareTo(answer) < 0)) {
+                answer = arr[i];
                 max = cnt;
             }
         }
+
         bw.write(answer);
         bw.close();
     }
