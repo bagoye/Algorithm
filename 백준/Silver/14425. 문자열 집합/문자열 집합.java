@@ -1,6 +1,5 @@
 import java.io.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -13,13 +12,15 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-        Set<String> set = new HashSet<>();
-        for (int i = 0; i < n; i++) set.add(br.readLine());
-
+        String[] arr = new String[n];
+        for (int i = 0; i < n; i++) arr[i] = (br.readLine());
+        Arrays.sort(arr);
+        
         int cnt = 0;
         while (m-- > 0) {
             String x = br.readLine();
-            if (set.contains(x)) cnt++;
+            int idx = Arrays.binarySearch(arr, x);
+            if (idx >= 0) cnt++;
         }
         bw.write(cnt + "");
         bw.close();
