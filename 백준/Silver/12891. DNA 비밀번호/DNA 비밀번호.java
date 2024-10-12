@@ -2,107 +2,51 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 public class Main {
+
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-    static int[] myArr;
-    static int[] checkArr;
-    static int checkSecret;
+    static StringTokenizer st;
+
+    public static int baseToIndex(char alp) {
+        if (alp == 'A') return 0;
+        else if (alp == 'C') return 1;
+        else if (alp == 'G') return 2;
+        else if (alp == 'T') return 3;
+        return -1;
+    }
+
+    public static boolean isValid(int[] cnt, int[] minCnt) {
+        for (int i = 0; i < cnt.length; i++) {
+            if (cnt[i] < minCnt[i]) return false;
+        }
+        return true;
+    }
 
     public static void main(String[] args) throws IOException {
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        st = new StringTokenizer(br.readLine());
         int s = Integer.parseInt(st.nextToken());
         int p = Integer.parseInt(st.nextToken());
-        int result = 0;
-        checkArr = new int[4];
-        myArr = new int[4];
-        char[] arr = new char[s];
-        checkSecret = 0;
+        char[] arr = br.readLine().toCharArray();
+        int[] minCnt = new int[4];
 
-        arr = br.readLine().toCharArray();
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < 4; i++) {
-            checkArr[i] = Integer.parseInt(st.nextToken());
-            if (checkArr[i] == 0) {
-                checkSecret++;
-            }
+            minCnt[i] = Integer.parseInt(st.nextToken());
         }
 
-        for (int i = 0; i < p; i++) { // 부분문자열 처음 받을 때
-            Add(arr[i]);
+        int[] cnt = new int[4];
+        for (int i = 0; i < p - 1; i++) {
+            cnt[baseToIndex(arr[i])]++;
+        }
+        int answer = 0;
+
+        for (int i = p - 1; i < s; i++) {
+            cnt[baseToIndex(arr[i])]++;
+            if (isValid(cnt, minCnt)) answer++;
+            cnt[baseToIndex(arr[i - p + 1])]--;
         }
 
-        if (checkSecret == 4) {
-            result++;
-        }
-
-        // 슬라이딩 윈도우
-        for (int i = p; i < s; i++) {
-            int j = i - p;
-            Add(arr[i]);
-            Remove(arr[j]);
-            if (checkSecret == 4) {
-                result++;
-            }
-        }
-        bw.write(Integer.toString(result));
+        bw.write(answer + "");
         bw.close();
-    }
-
-    private static void Remove(char c) {
-        switch (c) {
-            case 'A':
-                if (myArr[0] == checkArr[0]) {
-                    checkSecret--;
-                }
-                myArr[0]--;
-                break;
-            case 'C':
-                if (myArr[1] == checkArr[1]) {
-                    checkSecret--;
-                }
-                myArr[1]--;
-                break;
-            case 'G':
-                if (myArr[2] == checkArr[2]) {
-                    checkSecret--;
-                }
-                myArr[2]--;
-                break;
-            case 'T':
-                if (myArr[3] == checkArr[3]) {
-                    checkSecret--;
-                }
-                myArr[3]--;
-                break;
-        }
-    }
-
-    public static void Add(char c) {
-        switch (c) {
-            case 'A':
-                myArr[0]++;
-                if (myArr[0] == checkArr[0]) {
-                    checkSecret++;
-                }
-                break;
-            case 'C':
-                myArr[1]++;
-                if (myArr[1] == checkArr[1]) {
-                    checkSecret++;
-                }
-                break;
-            case 'G':
-                myArr[2]++;
-                if (myArr[2] == checkArr[2]) {
-                    checkSecret++;
-                }
-                break;
-            case 'T':
-                myArr[3]++;
-                if (myArr[3] == checkArr[3]) {
-                    checkSecret++;
-                }
-                break;
-        }
     }
 }
