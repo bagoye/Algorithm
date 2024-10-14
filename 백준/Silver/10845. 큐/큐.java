@@ -6,56 +6,29 @@ import java.util.StringTokenizer;
 public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-    static StringTokenizer st;
-    static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
         int n = Integer.parseInt(br.readLine());
         Queue<Integer> q = new LinkedList<>();
-        int num = 0;
-        for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            String s = st.nextToken();
+        int lastValue = -1;
 
-            switch (s) {
-                case "push" :
-                    num = Integer.parseInt(st.nextToken());
-                    q.offer(num);
-                    break;
-                case "pop":
-                    if (q.isEmpty()) {
-                        sb.append(-1).append("\n");
-                    } else {
-                        sb.append(q.poll()).append("\n");
-                    }
-                    break;
-                case "size":
-                    sb.append(q.size()).append("\n");
-                    break;
-                case "empty":
-                    if (q.isEmpty()) {
-                        sb.append(1).append("\n");
-                    } else {
-                        sb.append(0).append("\n");
-                    }
-                    break;
-                case "front":
-                    if (q.isEmpty()) {
-                        sb.append(-1).append("\n");
-                    } else {
-                        sb.append(q.peek()).append("\n");
-                    }
-                    break;
-                case "back":
-                    if (q.isEmpty()) {
-                        sb.append(-1).append("\n");
-                    } else {
-                        sb.append(num).append("\n");
-                    }
-                    break;
+        while (n-- > 0) {
+            String[] cmd = br.readLine().split(" ");
+            if (cmd[0].equals("push")) {
+                lastValue = Integer.parseInt(cmd[1]);
+                q.offer(Integer.parseInt(cmd[1]));
+            } else if (cmd[0].equals("pop")) {
+                bw.write(q.isEmpty() ? "-1\n" : q.poll() + "\n");
+            } else if (cmd[0].equals("size")) {
+                bw.write(q.size() + " \n");
+            } else if (cmd[0].equals("empty")) {
+                bw.write(q.isEmpty() ? "1\n" : "0\n");
+            } else if (cmd[0].equals("front")) {
+                bw.write(q.isEmpty() ? "-1\n" : q.peek() + "\n");
+            } else if (cmd[0].equals("back")) {
+                bw.write(q.isEmpty() ? "-1\n" : lastValue + "\n");
             }
         }
-        bw.write(sb.toString());
         bw.close();
     }
 }
